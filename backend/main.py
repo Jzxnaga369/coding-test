@@ -12,7 +12,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # .env 
-# OPENAI_API_KEY=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
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 app = FastAPI()
