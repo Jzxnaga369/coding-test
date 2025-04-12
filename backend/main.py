@@ -2,18 +2,24 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 import json
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# Menghilangkan error favicon.ico yang sebenarnya normal saja
+@app.get("/favicon.ico")
+async def favicon():
+    return FileResponse("static/favicon.ico")
+
 # Load dummy data
-with open("dummyData.json", "r") as f:
+# load dummy data tanpa merubah yang ada di folder level 1 menambahkan ../
+with open("../dummyData.json", "r") as f:
     DUMMY_DATA = json.load(f)
 
-@app.get("/api/data")
-def get_data():
-    """
-    Returns dummy data (e.g., list of users).
-    """
+@app.get("/api/sales-reps")
+def get_sales_reps():
     return DUMMY_DATA
 
 @app.post("/api/ai")
