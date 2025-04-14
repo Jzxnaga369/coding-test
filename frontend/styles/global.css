@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  --background: #cf4a4a;
+  --foreground: #171717;
+}
+
+.bg-main-curious {
+  background-color: #1c7fcc;
+}
+
+.bg-main-color {
+  /* Torea Bay */
+  background: #0f3a85;
+  background-color: rgb(15 58 133);
+  /* Ebony */
+  background: #0b0d21;
+  background-color: rgb(11 13 33);
+  /* Picton Blue */
+  background: #3cbce3;
+  background-color: rgb(60 188 227);
+  /* Curious Blue */
+  background: #1c7fcc;
+  background-color: rgb(28 127 204);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #d6d6d6;
+  }
+}
+
+.bg-main-line{
+  background-color: rgb(60 188 227);
+}
+
+.bg-theme {
+  background-color: rgb(92, 92, 92);
+}
+
+.bg-custom {
+  /* background-image: url('/img/desktop-bg.jpg'); */
+  background-size: cover;
+  background-position: center;
+  
+}
+
+.responsive-width{
+  width: 80vw; /* Example: Adjust this percentage as needed */
+  max-width: 750px; /* Prevent excessive scaling */
+}
+
+.responsive-width-2{
+  width: 80vw; /* Example: Adjust this percentage as needed */
+  max-width: 1000px; /* Prevent excessive scaling */
+}
+
+.responsive-card{
+  position: absolute;
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5); /* Realistic screen shadow */
+  background-color: rgba(246, 246, 246, 0.5);
+}
+
+.bg-media{
+  height: calc(4 / 3 * 80vw); /* Maintain the 600:800 ratio (4:3) */
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5); /* Realistic screen shadow */
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+@media (min-width: 750px) {
+  .bg-custom {
+    /* background-image: url('/img/desktop-bg.jpg'); */
+    position: absolute;
+    min-height: 1000px;
+    min-width: 750px;
+  }
+  .responsive-width{
+    width: 90vw; /* Example: Adjust this percentage as needed */
+  }
+  .bg-media {
+    height: calc(90vw * 9 / 16); /* Maintain 16:9 aspect ratio */
+    max-width: 750px; /* Prevent excessive scaling */
+    max-height: 450px; /* Keep aspect ratio */
+    background-color: black; /* Screen background */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5); /* Realistic screen shadow */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* Optional: Add a bezel effect */
+  .bg-media::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    background-color: #c5c1c1; /* Dark gray for bezel effect */
+    border-radius: 10px;
+  }
+}

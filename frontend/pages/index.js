@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import NavbarComponent from "./components/navbarComponent";
+
 
 export default function Home() {
   const [users, setUsers] = useState([]);
@@ -7,16 +9,24 @@ export default function Home() {
   const [answer, setAnswer] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/data")
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("http://localhost:8000/api/data");
+  
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+  
+        const data = await res.json();
         setUsers(data.users || []);
-        setLoading(false);
-      })
-      .catch((err) => {
+      } catch (err) {
         console.error("Failed to fetch data:", err);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+  
+    fetchData();
   }, []);
 
   const handleAskQuestion = async () => {
@@ -35,8 +45,11 @@ export default function Home() {
 
   return (
     <div style={{ padding: "2rem" }}>
+      <NavbarComponent></NavbarComponent>
       <h1>Next.js + FastAPI Sample</h1>
-
+      <h1 className="text-3xl font-bold underline">
+        Hello world!
+      </h1>
       <section style={{ marginBottom: "2rem" }}>
         <h2>Dummy Data</h2>
         {loading ? (
