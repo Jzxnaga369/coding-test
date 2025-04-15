@@ -1,64 +1,43 @@
-import { useState, useEffect } from "react";
-import NavbarComponent from "./components/navbarComponent";
-
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchSales } from '../store/slices/sales';
+import { fetchAIAnswer, setQuestion } from '../store/slices/ai';
+import NavbarComponent from './components/NavbarComponent';
 
 export default function Home() {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [question, setQuestion] = useState("");
-  const [answer, setAnswer] = useState("");
+  const dispatch = useDispatch();
+
+  const { sales, loading: salesLoading, error: salesError } = useSelector(
+    (state) => state.sales
+  );
+
+  const { question, answer, loading: aiLoading, error: aiError } = useSelector(
+    (state) => state.ai
+  );
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch("http://localhost:8000/api/data");
-  
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-  
-        const data = await res.json();
-        setUsers(data.users || []);
-      } catch (err) {
-        console.error("Failed to fetch data:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-  
-    fetchData();
-  }, []);
+    dispatch(fetchSales());
+  }, [dispatch]);
 
-  const handleAskQuestion = async () => {
-    try {
-      const response = await fetch("http://localhost:8000/api/ai", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question }),
-      });
-      const data = await response.json();
-      setAnswer(data.answer);
-    } catch (error) {
-      console.error("Error in AI request:", error);
-    }
+  const handleAskQuestion = () => {
+    dispatch(fetchAIAnswer(question));
   };
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <NavbarComponent></NavbarComponent>
+    <div style={{ padding: '2rem' }}>
+      <NavbarComponent />
       <h1>Next.js + FastAPI Sample</h1>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-      <section style={{ marginBottom: "2rem" }}>
-        <h2>Dummy Data</h2>
-        {loading ? (
-          <p>Loading...</p>
+      <section style={{ marginBottom: '2rem' }}>
+        <h2>Sales Data</h2>
+        {salesLoading ? (
+          <p>Loading sales...</p>
+        ) : salesError ? (
+          <p>Error: {salesError}</p>
         ) : (
           <ul>
-            {users.map((user) => (
-              <li key={user.id}>
-                {user.name} - {user.role}
+            {sales.map((sale) => (
+              <li key={sale.id}>
+                {sale.product} - {sale.quantity}
               </li>
             ))}
           </ul>
@@ -72,15 +51,19 @@ export default function Home() {
             type="text"
             placeholder="Enter your question..."
             value={question}
-            onChange={(e) => setQuestion(e.target.value)}
+            onChange={(e) => dispatch(setQuestion(e.target.value))}
           />
           <button onClick={handleAskQuestion}>Ask</button>
         </div>
-        {answer && (
-          <div style={{ marginTop: "1rem" }}>
+        {aiLoading ? (
+          <p>Loading answer...</p>
+        ) : aiError ? (
+          <p>Error: {aiError}</p>
+        ) : answer ? (
+          <div style={{ marginTop: '1rem' }}>
             <strong>AI Response:</strong> {answer}
           </div>
-        )}
+        ) : null}
       </section>
     </div>
   );

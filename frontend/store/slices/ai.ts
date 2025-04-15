@@ -28,6 +28,7 @@ export const fetchAIAnswer = createAsyncThunk<string, string, { rejectValue: str
         return rejectWithValue('Failed to get AI response');
       }
       const data = await response.json();
+      console.log(data)
       return data.answer;
     } catch (error) {
       return rejectWithValue('Error fetching AI answer');

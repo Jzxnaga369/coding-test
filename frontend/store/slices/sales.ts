@@ -22,11 +22,12 @@ export const fetchSales = createAsyncThunk<Sale[], void, { rejectValue: string }
   'sales/fetchSales',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch('http://localhost:8000/api/sales');
+      const response = await fetch('http://localhost:8000/api/data');
       if (!response.ok) {
         return rejectWithValue('Failed to fetch sales');
       }
       const data = await response.json();
+      console.log(data)
       return data.sales || [];
     } catch (error) {
       return rejectWithValue('Error fetching sales');
