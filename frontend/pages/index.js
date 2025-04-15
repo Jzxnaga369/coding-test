@@ -36,9 +36,7 @@ export default function Home() {
         ) : (
           <ul>
             {sales.map((sale) => (
-              <li key={sale.id}>
-                {sale.product} - {sale.quantity}
-              </li>
+              <li key={sale.id}>{sale.name}</li>
             ))}
           </ul>
         )}
