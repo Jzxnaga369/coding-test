@@ -1,42 +1,43 @@
-export default function NavbarComponent(){
-    return(
-        <div className="container mx-auto flex items-center h-24">
-          <a href="" className="flex items-center justify-center">
-            <img className="h-16" src="https://i.ibb.co/6Yxs70d/2021-10-26-23h27-03.png" alt="" />
-            <span className="ml-4 uppercase font-black">Juan<br/>Sanjaya</span>
-          </a>
-          <nav className="contents font-semibold text-base lg:text-lg">
-            <ul className="mx-auto flex items-center">
-              <li className="p-5 xl:p-8 active">
-                <a href="">
-                  <span>Home</span>
-                </a>
-              </li>
-              <li className="p-5 xl:p-8">
-                <a href="">
-                  <span>About</span>
-                </a>
-              </li>
-              <li className="p-5 xl:p-8">
-                <a href="">
-                  <span>Projects</span>
-                </a>
-              </li>
-              <li className="p-5 xl:p-8">
-                <a href="">
-                  <span>Services</span>
-                </a>
-              </li>
-              <li className="p-5 xl:p-8">
-                <a href="">
-                  <span>Blog</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <button className="border border-white rounded-full font-bold px-8 py-2">Contact me</button>
-        </div>
-    )
-  }
-  
-  
+import React from 'react';
+
+export default function NavbarComponent() {
+  return (
+    <div className="navbar">
+      <span className="navbar-brand">
+        <a href="">
+          <span>Juan<br />Sanjaya</span>
+        </a>
+      </span>
+      <nav className="navbar-nav">
+        <ul className="navbar-menu">
+          <li className="navbar-menu-item active">
+            <a href="">
+              <span>Home</span>
+            </a>
+          </li>
+          <li className="navbar-menu-item">
+            <a href="">
+              <span>About</span>
+            </a>
+          </li>
+          <li className="navbar-menu-item">
+            <a href="">
+              <span>Projects</span>
+            </a>
+          </li>
+          <li className="navbar-menu-item">
+            <a href="">
+              <span>Services</span>
+            </a>
+          </li>
+          <li className="navbar-menu-item">
+            <a href="">
+              <span>Blog</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <button className="navbar-button">Contact me</button>
+    </div>
+  );
+}
