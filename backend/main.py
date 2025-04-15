@@ -42,7 +42,6 @@ def get_sales_reps():
 # Percobaan ai menggunakan open.ai
 # @app.post("/api/ai")
 # async def ai_endpoint(request: Request):
-# 		print("Loaded API key:", os.getenv("OPENAI_API_KEY"))
 
 # 		body = await request.json()
 # 		question = body.get("question", "")
@@ -70,43 +69,43 @@ def use_dummy_data(data, question):
 
 @app.post("/api/ai")
 async def ai_endpoint(request: Request):
-    body = await request.json()
-    question = body.get("question", "")
-    based_on_data = body.get("based_on_data", False)
+	body = await request.json()
+	question = body.get("question", "")
+	based_on_data = bool(body.get("based_on_data"))
+	print(based_on_data)
 
-    if not question:
-        return {"answer": "Please provide a question."}
+	if not question:
+		return {"answer": "Please provide a question."}
 
-    try:
-        # If the question is supposed to be based on data, generate context
-        if based_on_data:
-            context = use_dummy_data(DUMMY_DATA, question)
-            prompt = f"""Based on the data:\n{context}\nAnswer this question:\n{question}"""
-        else:
-            prompt = f"Answer this question:\n{question}"
+	try:
+		if based_on_data:
+			context = use_dummy_data(DUMMY_DATA, question)
+			prompt = f"""Based on the data:\n{context}\nAnswer this question:\n{question}"""
+		else:
+			prompt = f"Answer this question:\n{question}"
 
-        # Request to external API with the prompt
-        response = requests.post(
-            "https://openrouter.ai/api/v1/chat/completions",
-            headers={
-                "Authorization": f"Bearer {OPENROUTER_API_KEY}",
-                "HTTP-Referer": "http://localhost",
-                "X-Title": "My Local JSON QA App"
-            },
-            json={
-                "model": "openai/gpt-3.5-turbo",
-                "messages": [
-                    {"role": "user", "content": prompt}
-                ]
-            }
-        )
+		# Request to external API with the prompt
+		response = requests.post(
+			"https://openrouter.ai/api/v1/chat/completions",
+			headers={
+				"Authorization": f"Bearer {OPENROUTER_API_KEY}",
+				"HTTP-Referer": "http://localhost",
+				"X-Title": "My Local JSON QA App"
+			},
+			json={
+				"model": "openai/gpt-3.5-turbo",
+				"messages": [
+					{"role": "user", "content": prompt}
+				]
+			}
+		)
 
-        result = response.json()
-        answer = result["choices"][0]["message"]["content"]
-        return {"answer": answer}
+		result = response.json()
+		answer = result["choices"][0]["message"]["content"]
+		return {"answer": answer}
 
-    except Exception as e:
-        return {"error": str(e)}
+	except Exception as e:
+		return {"error": str(e)}
 
 
 if __name__ == "__main__":

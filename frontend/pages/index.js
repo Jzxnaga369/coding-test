@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect , useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSales } from '../store/slices/sales';
 import { fetchAIAnswer, setQuestion } from '../store/slices/ai';
@@ -11,16 +11,15 @@ export default function Home() {
     (state) => state.sales
   );
 
-  const { question, answer, loading: aiLoading, error: aiError } = useSelector(
+  const { question, answer, based_on_data , loading: aiLoading, error: aiError } = useSelector(
     (state) => state.ai
   );
-
   useEffect(() => {
     dispatch(fetchSales());
   }, [dispatch]);
 
   const handleAskQuestion = () => {
-    dispatch(fetchAIAnswer(question));
+    dispatch(fetchAIAnswer({ question, based_on_data }));
   };
 
   return (

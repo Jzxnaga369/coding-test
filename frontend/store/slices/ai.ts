@@ -1,28 +1,31 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
-// Define the state shape for AI functionality
 interface AIState {
-  question: string;
-  answer: string;
-  loading: boolean;
-  error: string | null;
-}
+    question: string;
+    answer: string;
+    based_on_data: boolean;
+    loading: boolean;
+    error: string | null;
+  }
+  
+  const initialState: AIState = {
+    question: '',
+    answer: '',
+    based_on_data: true,
+    loading: false,
+    error: null,
+  };
 
-const initialState: AIState = {
-  question: '',
-  answer: '',
-  loading: false,
-  error: null,
-};
-
-export const fetchAIAnswer = createAsyncThunk<string, string, { rejectValue: string }>(
-  'ai/fetchAIAnswer',
-  async (question: string, { rejectWithValue }) => {
+export const fetchAIAnswer = createAsyncThunk<
+  string,
+  { question: string; based_on_data: boolean },
+  { rejectValue: string }>('ai/fetchAIAnswer',
+  async ({ question, based_on_data }, { rejectWithValue }) => {
     try {
       const response = await fetch('http://localhost:8000/api/ai', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question }),
+        body: JSON.stringify({ question , based_on_data  }),
       });
       if (!response.ok) {
         return rejectWithValue('Failed to get AI response');
