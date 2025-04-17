@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchSales } from '../store/slices/sales';
 import { fetchAIAnswer, setQuestion } from '../store/slices/ai';
 import NavbarComponent from './components/NavbarComponent';
+import SliderComponent from './components/slider';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -25,6 +26,9 @@ export default function Home() {
   return (
     <div style={{ padding: '2rem' }}>
       <NavbarComponent />
+      
+      
+      
       <h1>Next.js + FastAPI Sample</h1>
       <section style={{ marginBottom: '2rem' }}>
         <h2>Sales Data</h2>
@@ -39,6 +43,11 @@ export default function Home() {
             ))}
           </ul>
         )}
+      </section>
+
+      <section>
+        <SliderComponent></SliderComponent>
+
       </section>
 
       <section>

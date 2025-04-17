@@ -1,0 +1,47 @@
+
+*{
+  margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body{
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #efefef;
+}
+
+.slide-content{
+	margin: 0 40px;
+	
+}
+
+.card{
+	border-radius: 25px;
+	background-color: #fff;
+}
+
+.image-content,
+card-content{
+	display: flex;
+}
+
+.card-image{
+  position: realitve;
+	height: 150px;
+	width: 150px;
+	border-radius: 50%;
+	background: #fff;
+	padding: 3px;
+}
+
+.card-image .card-img{
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+	border-radius: 50%;
+	border: 4px solid #4070f4;
+}
+

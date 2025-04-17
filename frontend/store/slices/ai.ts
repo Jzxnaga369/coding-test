@@ -9,7 +9,7 @@ interface AIState {
   }
   
   const initialState: AIState = {
-    question: '',
+  question: '',
     answer: '',
     based_on_data: true,
     loading: false,
