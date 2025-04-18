@@ -5,6 +5,10 @@ body {
 	justify-content: center;
 	/* background-color: #efefef; */
   }
+  
+  .loading-placeholder{
+	height: 800px;
+  }
 
   .slide-container{
 	max-width: 1120px;

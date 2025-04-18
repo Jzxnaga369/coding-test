@@ -29,7 +29,6 @@ export default function Home() {
       <h1>Sales Team</h1>
       <section>
         <SliderComponent></SliderComponent>
-
       </section>
 
       <section>
