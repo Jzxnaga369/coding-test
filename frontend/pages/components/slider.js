@@ -65,12 +65,18 @@ const SliderComponent = () => {
                       <div className="description">
                         <p>{sale.role}</p>
                         <p>{sale.region}</p>
-                        <p>{sale.skills}</p>
+                        <div className="skills">
+                          {sale.skills && sale.skills.map((skill, index) => (
+                            <span key={index} className="skill-badge">{skill}</span>
+                          ))}
+                        </div>
                       </div>
                     </div>
                     <div className="button-content">
-                      <button className="button" type="button">
-                        Sales Info
+                      <button 
+                      onClick={() => openLightbox(sale)}
+                      className="button" type="button">
+                        Deals Info
                       </button>
                     </div>
                   </SwiperSlide>
@@ -91,12 +97,38 @@ const SliderComponent = () => {
           </button>
           <div className="lightbox-body">
             <img
-              src={selected.imageUrl}
+              src={selected.imageUrl || defaultImageUrl}
               alt={selected.name}
               className="lightbox-img"
             />
             <h2>{selected.name}</h2>
-            <p>{selected.description}</p>
+            <p>{selected.role}</p>
+            <h3>Deals</h3>
+            <table className="deals-table">
+              <thead>
+                <tr>
+                  <th colSpan="3">
+                    Total Value: ${selected.deals.reduce((sum, deal) => sum + deal.value, 0).toLocaleString()}
+                  </th>
+                </tr>
+                <tr>
+                  <th>Client</th>
+                  <th>Value</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {selected.deals.map((deal, index) => (
+                  <tr key={index}>
+                    <td>{deal.client}</td>
+                    <td>${deal.value.toLocaleString()}</td>
+                    <td className={`status ${deal.status.replace(/\s+/g, '-').toLowerCase()}`}>
+                      {deal.status}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </Modal>
       )}

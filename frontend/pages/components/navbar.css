@@ -23,16 +23,21 @@
   }
   
   .navbar {
+    position: fixed;
+    top: 0;
+    left: 0 ;
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    z-index: 1000;
+    background-color: #ffffff;
+    height: 6rem;
     display: flex;
     align-items: center;
-    height: 6rem;
-    background-color: #ffffff;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 0 15px;
     border-radius: 15px;
+  }
+
+  main {
+    padding-top: 6rem;
   }
   
   .navbarBrand {
@@ -86,3 +91,9 @@
     color: inherit;
     cursor: pointer;
   }
+
+  .navbar-menu-item-active {
+  font-weight: bold;
+  color: #6c8ce4;
+  border-bottom: 2px solid #6c8ce4;
+}
