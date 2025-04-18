@@ -26,25 +26,7 @@ export default function Home() {
   return (
     <div style={{ padding: '2rem' }}>
       <NavbarComponent />
-      
-      
-      
-      <h1>Next.js + FastAPI Sample</h1>
-      <section style={{ marginBottom: '2rem' }}>
-        <h2>Sales Data</h2>
-        {salesLoading ? (
-          <p>Loading sales...</p>
-        ) : salesError ? (
-          <p>Error: {salesError}</p>
-        ) : (
-          <ul>
-            {sales.map((sale) => (
-              <li key={sale.id}>{sale.name}</li>
-            ))}
-          </ul>
-        )}
-      </section>
-
+      <h1>Sales Team</h1>
       <section>
         <SliderComponent></SliderComponent>
 

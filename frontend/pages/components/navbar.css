@@ -29,6 +29,10 @@
     display: flex;
     align-items: center;
     height: 6rem;
+    background-color: #ffffff;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 15px;
   }
   
   .navbarBrand {
